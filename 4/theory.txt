@@ -1,0 +1,77 @@
+﻿a)
+Define FD1 := D→B => {D}^+ = {D,B}
+Define FD2 := CE→A => {C,E}^+ = {A,C,E}
+(Phase 1) 
+{all}={A,B,C,D,E}
+ FD1 => {D}^+ = {D,B} != ({D} or {all})
+	(Phase 2) 
+	R1:=R({D}^+)=R(B,D)
+		(Phase 1)
+		{all}={B,D}
+		FD1 => {D}^+={D,B}={all}
+		FD2 => Nothing
+		BCNF
+	R2:=R({{all}\{D}^+}}U{D})=R(A,C,D,E)
+		(Phase 1)
+		{all} = {A,C,D,E}
+		FD2 => {C,E}^+={A,C,E}!= ({C,E} or {all})
+			(Phase 2)
+			R1:=R({C,E}^+}=R(A,C,E)
+				(Phase 1)
+				{all}={A,C,E}
+				FD2 => {C,E}^+={all}
+				FD1 => Nothing
+				BCNF
+			R2:=R({{all}\{C,E}^+}U(C,E)) = R(C,D,E)
+				(Phase 1)
+				{all} = {C,D,E}
+				FD1 => {D}^+={D}
+				FD2 => {C,E}^+={C,E}
+				BCNF
+Thus, BCNF(R{all}) = {R(B,D), R(A,C,E), R(C,D,E)}.
+
+b)
+Define FD1 := A→E => {A}^+ = {A,E}
+Define FD2 := BC→A→E => {B,C}^+ = {A,B,C,E}
+Define FD3 := DE→B => {D,E}^+ = {B,D,E}
+(Phase 1)
+{all}={A,B,C,D,E}
+FD1 => {A}^+ != ({A} or {all})
+(Phase 2)
+S1 := S({A}^+) = S(A,E)
+	(Phase 1)
+	{all}={A,E}
+	FD1 => {A}^+ = {all}
+	FD2 => Nothing
+	FD3 => Nothing
+	BCNF
+S2 := S({{all}\{A}^+}U{A} = S(A,B,C,D)
+	(Phase 1)
+	{all}={A,B,C,D}
+	FD1 => {A}^+={A}
+	FD2 => {BC}^+={A,B,C} != ({all} and {BC})
+	(Phase 2)
+		S1 := S({BC}^+) = S(A,B,C)
+		(Phase 1)
+		{all} = {A,B,C}
+		FD1 => {A}^+ = {A}
+		FD2 => {B,C}^+ = {A,B,C} = {all}
+		FD3 => Nothing
+		BCNF
+		S2 := S({{all}\{B,C}^+}U{B,C}) = S(B,C,D)
+		(Phase 1)
+		{all} = {B,C,D}
+		FD1 => Nothing
+		FD2 => {B,C}^+ = {B,C}
+		FD3 => {D,E}^+ => Nothing
+		BCNF
+Thus, BCNF(S{all}) = {S(A,E), S(A,B,C), S(B,C,D)}.
+
+c)
+{}(empty set; i.e. only trivial dependencies A→A, B→B, C→C, and D→D)
+
+d)
+{A→BCD, B→ACD, C→ADB, D→ABC}
+
+e)
+{A→B, A→D, B→C, C→B, D→B, D→C, D→A}
